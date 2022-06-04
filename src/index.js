@@ -1,14 +1,15 @@
-import "@babel/polyfill";
-import React from "react";
-import { createRoot } from "react-dom/client";
+import '@babel/polyfill';
+import React from 'react';
+import { createRoot } from 'react-dom/client';
 
-import { Provider } from "react-redux";
-import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
-import { ConnectedRouter } from "connected-react-router";
-import Layout from "./pages/";
-import configureStore, { history } from "./store/";
-import * as serviceWorker from "./serviceWorker";
-import "./styles.css";
+import { Provider } from 'react-redux';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { ConnectedRouter } from 'connected-react-router';
+import Layout from './pages/';
+import configureStore, { history } from './store/';
+import * as serviceWorker from './serviceWorker';
+import './styles.css';
+import 'antd/dist/antd.css';
 
 const store = configureStore();
 
@@ -18,13 +19,13 @@ const store = configureStore();
 serviceWorker.unregister();
 
 const theme = createMuiTheme({
-  direction: "rtl",
+  direction: 'rtl',
   typography: {
     useNextVariants: true,
   },
 });
 
-const container = document.getElementById("root");
+const container = document.getElementById('root');
 
 const root = createRoot(container);
 root.render(
