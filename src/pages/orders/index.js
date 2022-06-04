@@ -16,7 +16,7 @@ import { Tag } from "antd";
 
 const DEFAULT_PER_PAGE = 18;
 
-const Products = ({ dispatch, USER, WOO_PRODUCTS }) => {
+const Orders = ({ dispatch, USER, WOO_PRODUCTS }) => {
   const [productsCount, setProductsCount] = useState(0);
   const [pager, setPager] = useState(1);
   const [wooProducts, setWooProducts] = useState([]);
@@ -45,7 +45,7 @@ const Products = ({ dispatch, USER, WOO_PRODUCTS }) => {
 
   const getWooProducts = () => {
     dispatch(loading(true, "header-loader"));
-    API.WC_getWooProducts(USER.token, DEFAULT_PER_PAGE, pager)
+    API.WC_getWooOrders(USER.token, DEFAULT_PER_PAGE, pager)
       .then((result) => {
         if (result !== undefined) {
           dispatch(
@@ -281,4 +281,4 @@ const Products = ({ dispatch, USER, WOO_PRODUCTS }) => {
 
 const mapStateToProps = ({ USER, WOO_PRODUCTS }) => ({ USER, WOO_PRODUCTS });
 
-export default connect(mapStateToProps)(Products);
+export default connect(mapStateToProps)(Orders);

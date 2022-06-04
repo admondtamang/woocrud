@@ -1,49 +1,50 @@
-import React, { Fragment, useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { BrowserRouter, Route, withRouter, Switch } from 'react-router-dom';
-import { Redirect } from 'react-router';
+import React, { Fragment, useState, useEffect } from "react";
+import { connect } from "react-redux";
+import { BrowserRouter, Route, withRouter, Switch } from "react-router-dom";
+import { Redirect } from "react-router";
 
-import { login, loading } from './store/actions/';
+import { login, loading } from "./store/actions/";
 
 // PAGES
-import Login from './pages/login';
-import Products from './pages/products';
-import AddProduct from './pages/add-product';
-import EditProductPage from './pages/edit-product';
-import Page404 from './pages/not-found';
-import UserProfile from './pages/user-settings';
+import Login from "./pages/login";
+import Products from "./pages/products";
+import AddProduct from "./pages/add-product";
+import EditProductPage from "./pages/edit-product";
+import Page404 from "./pages/not-found";
+import UserProfile from "./pages/user-settings";
 
-import API from './API/';
+import API from "./API/";
 
-import { APP_PATHS } from './config';
+import { APP_PATHS } from "./config";
+import Orders from "./pages/orders";
 
 const Routing = ({ dispatch, AUTHORIZED }) => {
   const [readyToRender, setReadyToRender] = useState(false);
 
   useEffect(() => {
     // CHECK IF USER IS ALREADY CONNECTED
-    if (localStorage.getItem('woo-app')) {
+    if (localStorage.getItem("woo-app")) {
       // SHOW ROOT LOADING
-      dispatch(loading(true, 'root-loader'));
+      dispatch(loading(true, "root-loader"));
 
-      let token = JSON.parse(localStorage.getItem('woo-app')).token;
+      let token = JSON.parse(localStorage.getItem("woo-app")).token;
 
       API.TOKEN_VALIDATE(token)
         .then((result) => {
           dispatch(login(result.data.status === 200));
           // HIDE ROOT LOADING
-          dispatch(loading(false, 'root-loader'));
+          dispatch(loading(false, "root-loader"));
 
           setReadyToRender(true);
         })
         .catch((error) => {
           dispatch({
-            type: 'ERROR',
-            payload: error
+            type: "ERROR",
+            payload: error,
           });
 
           // HIDE ROOT LOADING
-          dispatch(loading(false, 'root-loader'));
+          dispatch(loading(false, "root-loader"));
           setReadyToRender(true);
         });
     } else {
@@ -60,6 +61,7 @@ const Routing = ({ dispatch, AUTHORIZED }) => {
           <PrivateRoute exact authed={AUTHORIZED} component={withRouter(Products)} path={APP_PATHS.MY_PRODUCTS} />
           <PrivateRoute exact authed={AUTHORIZED} component={withRouter(AddProduct)} path={APP_PATHS.ADD_PRODUCTS} />
           <PrivateRoute exact authed={AUTHORIZED} component={withRouter(UserProfile)} path={APP_PATHS.PARAMETERS} />
+          <PrivateRoute exact authed={AUTHORIZED} component={withRouter(Orders)} path={APP_PATHS.ORDERS} />
           <PrivateRoute
             exact
             authed={AUTHORIZED}

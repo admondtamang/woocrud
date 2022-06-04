@@ -1,7 +1,7 @@
-import axios from 'axios';
+import axios from "axios";
 
 const APP_API_URL =
-  process.env.NODE_ENV === 'production' ? process.env.REACT_APP_LIVE_STORE_URL : process.env.REACT_APP_LOCAL_STORE_URL;
+  process.env.NODE_ENV === "production" ? process.env.REACT_APP_LIVE_STORE_URL : process.env.REACT_APP_LOCAL_STORE_URL;
 
 // Wordpress API
 export const WP = `${APP_API_URL}/wp-json/wp/v2`;
@@ -31,12 +31,12 @@ const TOKEN_VALIDATE = (token) => {
     });
 };
 
-const WC_getWooProducts = (token, perpage, pager, category = 'all', vendor) => {
+const WC_getWooProducts = (token, perpage, pager, category = "all", vendor) => {
   let url;
 
   if (vendor) {
-    url = `${WCFM}/store-vendors/6/products?per_page=${perpage}&page=${pager}&category=${category || 'all'}`;
-  } else if (category !== 'all') {
+    url = `${WCFM}/store-vendors/6/products?per_page=${perpage}&page=${pager}&category=${category || "all"}`;
+  } else if (category !== "all") {
     url = `${WC}/products?per_page=${perpage}&page=${pager}&category=${category}`;
   } else {
     url = `${WC}/products?per_page=${perpage}&page=${pager}`;
@@ -57,7 +57,7 @@ const WC_getWooProducts = (token, perpage, pager, category = 'all', vendor) => {
 
 const WC_getWooOrders = (token, perpage, pager, vendor) => {
   let url;
-  url = `${WCFM}/store-vendors/orders?per_page=${perpage}&page=${pager}`;
+  url = `${WCFM}/orders?per_page=${perpage}&page=${pager}`;
 
   return axios
     .get(url, {
