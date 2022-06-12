@@ -138,90 +138,59 @@ const Orders = ({ dispatch, USER, WOO_PRODUCTS }) => {
   const columns = useMemo(
     () => [
       {
-        title: "Image",
-        dataIndex: "image",
-        key: "images",
-        width: "10%",
-        render: (_, record) => {
-          const image = record?.images[0]?.src;
-          if (image) return <img className="visual" src={image} alt={record.slug} />;
-          else
+        title: "Total",
+        dataIndex: "total",
+        key: "total",
+        sorter: (a, b) => a.total - b.total,
+        render: (_, { total, shipping_total }) => (
+          <>
+            <strong>{total}</strong> <>shipping {shipping_total}</>
+          </>
+        ),
+      },
+      {
+        title: "billing",
+        dataIndex: "billing",
+        key: "billing",
+        render: (_, { billing, shipping }) => {
+          // display object in key value pair
+          function renderObject(data, label = "") {
             return (
-              <div className="no-thumbnail">
-                <span>No Image</span>
-              </div>
+              <>
+                <h1 className="bold mt-2">{label}</h1>
+                {Object.entries(data).map(([key, value]) => (
+                  <div>{key + ":" + value}</div>
+                ))}
+              </>
             );
+          }
+
+          return (
+            <div className="flex">
+              {renderObject(billing, "Billing")}
+              {renderObject(shipping, "Shipping")}
+            </div>
+          );
         },
       },
-      {
-        title: "Name",
-        dataIndex: "name",
-        key: "name",
-        sorter: (a, b) => a.name.length - b.name.length,
-      },
-      {
-        title: "Stock_quantity",
-        dataIndex: "stock_quantity",
-        key: "stock_quantity",
-        sorter: (a, b) => a.stock_quantity - b.stock_quantity,
-      },
+
       {
         title: "status",
         dataIndex: "status",
         key: "status",
         sorter: (a, b) => a.stock_quantity - b.stock_quantity,
-        render: (_, { stock_status }) => {
+        render: (_, { status }) => {
           let color;
-          if (stock_status === "publish") color = "green";
+          if (status === "COMPLETED") color = "green";
+          if (status === "ON-HOLD") color = "red";
           else color = "geekblue";
 
           return (
-            <Tag color={color} key={stock_status}>
-              {stock_status.toUpperCase()}
+            <Tag color={color} key={status}>
+              {status?.toUpperCase()}
             </Tag>
           );
         },
-      },
-      {
-        title: "stock_status",
-        dataIndex: "stock_status",
-        key: "stock_status",
-        sorter: (a, b) => a.stock_status.length - b.stock_status.length,
-        render: (_, { stock_status }) => {
-          let color;
-          if (stock_status === "instock") color = "green";
-          else color = "red";
-
-          return (
-            <Tag color={color} key={stock_status}>
-              {stock_status.toUpperCase()}
-            </Tag>
-          );
-        },
-      },
-      {
-        title: "price",
-        dataIndex: "price",
-        key: "price",
-        sorter: (a, b) => a.price - b.price,
-        render: (_, { price, regular_price }) => (
-          <>
-            <strong>{price}</strong> <strike> {regular_price}</strike>
-          </>
-        ),
-      },
-
-      {
-        title: "Action",
-        key: "action",
-        render: (_, record) => (
-          <Space size="middle">
-            <Link to={APP_PATHS.EDIT_PRODUCT.replace(":productId", record.id)}> Edit</Link>
-            {/* <a id="product-item-delete-button" onClick={() => setShowConfirmation(true)} className="danger">
-              Delete Product
-            </a> */}
-          </Space>
-        ),
       },
     ],
     []

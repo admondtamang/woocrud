@@ -230,14 +230,16 @@ const Products = ({ dispatch, USER, WOO_PRODUCTS }) => {
   return (
     <div id="user-products-page">
       <Header />
+
       {/* handleTableSwitch */}
-      <>
-        <div>
+      <div className="flex justify-between">
+        <div className="flex">
           <h1>Switch View</h1>
           <Switch defaultChecked onChange={handleTableSwitch} />
         </div>
-        Total Products : {parseInt(productsCount)}
-      </>
+        <>Total Products : {parseInt(productsCount)}</>
+      </div>
+
       {switchPreview ? (
         <div style={{ paddingBottom: 40 }}>
           <AntTable
