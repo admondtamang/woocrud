@@ -11,7 +11,10 @@ export default function useOrderColumns() {
         sorter: (a, b) => a.total - b.total,
         render: (_, { total, shipping_total }) => (
           <>
-            <strong>{total}</strong> <>shipping {shipping_total}</>
+            <strong>{total}</strong>
+            <>
+              including shipping <strong>{shipping_total}</strong>
+            </>
           </>
         ),
       },
@@ -23,14 +26,15 @@ export default function useOrderColumns() {
         render: (_, { billing, shipping }) => {
           // display object in key value pair
           function renderObject(data, label = "") {
-            return (
-              <div>
-                <h1 className="bold mt-2">{label}</h1>
-                {Object.entries(data).map(([key, value]) => (
-                  <div>{key + ":" + value}</div>
-                ))}
-              </div>
-            );
+            let valueAppended = "";
+            Object.entries(data).map(([key, value]) => (valueAppended += value));
+            if (valueAppended)
+              return (
+                <div>
+                  <h1 className="bold mt-2">{label}</h1>
+                  {Object.entries(data).map(([key, value]) => (value ? <div>{key + ":" + value}</div> : null))}
+                </div>
+              );
           }
 
           return (

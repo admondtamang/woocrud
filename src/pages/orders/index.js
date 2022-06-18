@@ -6,21 +6,16 @@ import { Switch } from "antd";
 import { useQuery } from "react-query";
 import Template from "../../components/common/template";
 import useOrderColumns from "./useOrderColumns";
+import useOrders from "./hooks/useOrders";
 
 const Orders = ({ USER }) => {
   const [pager, setPager] = useState(1);
-  const [limit, setLimit] = useState(5);
+  const [limit, setLimit] = useState(10);
   const [switchPreview, setSwichPreview] = useState(true);
+
   const orderColumns = useOrderColumns();
+  const { isLoading, isFetching, error, data } = useOrders(USER, limit, pager);
 
-  const getWooProducts = async () => {
-    const result = await API.WC_getWooOrders(USER.token, limit, pager);
-    return result;
-  };
-
-  const { isLoading, error, data } = useQuery("orders", getWooProducts);
-
-  console.log(data);
   const productsCount = data?.headers["x-wp-total"];
 
   const pageChangeHandler = (pg, pageSize) => {
@@ -33,7 +28,7 @@ const Orders = ({ USER }) => {
   };
 
   return (
-    <Template isLoading={isLoading} error={error}>
+    <Template isLoading={isLoading} error={error} isFetching={isFetching}>
       {/* handleTableSwitch */}
       <>
         <div className="bg-black">
