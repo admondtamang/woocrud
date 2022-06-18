@@ -11,7 +11,6 @@ import { store as notifStore } from "react-notifications-component";
 import AntTable from "../../components/ant-table";
 import { Space, Switch } from "antd";
 import useColumnProducts from "./useProductsColumns";
-import { useQuery } from "react-query";
 import Template from "../../components/common/template";
 import useProducts from "./hooks/useProducts";
 

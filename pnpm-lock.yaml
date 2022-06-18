@@ -25,6 +25,7 @@ specifiers:
   prop-types: ^15.7.2
   rc-pagination: ^1.20.11
   react: ^18.1.0
+  react-content-loader: ^6.2.0
   react-dom: ^18.1.0
   react-draft-wysiwyg: ^1.13.2
   react-material-ui-form-validator: ^2.0.9
@@ -61,6 +62,7 @@ dependencies:
   prop-types: 15.8.1
   rc-pagination: 1.21.1
   react: 18.1.0
+  react-content-loader: 6.2.0_react@18.1.0
   react-dom: 18.1.0_react@18.1.0
   react-draft-wysiwyg: 1.14.7_yqouuk4qvvu2e2l3xknvs2tvmi
   react-material-ui-form-validator: 2.1.4_cakuhclh6eaysd2occk3772akm
@@ -11489,6 +11491,15 @@ packages:
       raf: 3.4.1
       regenerator-runtime: 0.13.9
       whatwg-fetch: 3.6.2
+    dev: false
+
+  /react-content-loader/6.2.0_react@18.1.0:
+    resolution: {integrity: sha512-r1dI6S+uHNLW68qraLE2njJYOuy6976PpCExuCZUcABWbfnF3FMcmuESRI8L4Bj45wnZ7n8g71hkPLzbma7/Cw==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: '>=16.0.0'
+    dependencies:
+      react: 18.1.0
     dev: false
 
   /react-dev-utils/9.1.0_ipbujatlnmw2co7qfcum7r7riy:
